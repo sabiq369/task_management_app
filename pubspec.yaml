@@ -37,6 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.6
   get:
   lottie:
+  dio:
+  fluttertoast:
+  loading_animation_widget:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

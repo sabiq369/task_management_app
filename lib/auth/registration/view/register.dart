@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:task_management_app/auth/login/controller/login_controller.dart';
+import 'package:task_management_app/auth/registration/controller/register_controller.dart';
 import 'package:task_management_app/auth/registration/view/register.dart';
 import 'package:task_management_app/common/color_constants.dart';
 import 'package:task_management_app/common/widgets/common_functions.dart';
 import 'package:task_management_app/common/widgets/extracted_text_field.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class Register extends StatelessWidget {
+  Register({Key? key}) : super(key: key);
   TextEditingController emailController = TextEditingController(),
       passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  LoginController _loginController = Get.put(LoginController());
+  RegisterController _registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +35,11 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Align(
-                      child: Lottie.asset("assets/images/login_replaced.json"),
+                      child: Lottie.asset("assets/images/register.json"),
                     ),
                   ),
                   Text(
-                    'Login',
+                    'Sign up',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 20),
@@ -75,15 +76,11 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 40),
-                  _loginController.isLoading.value
+                  _registerController.isLoading.value
                       ? loadingButton(context)
                       : ElevatedButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _loginController.login(
-                                  email: emailController.text,
-                                  password: passwordController.text);
-                            }
+                            if (_formKey.currentState!.validate()) {}
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstants.buttonColor,
@@ -91,17 +88,17 @@ class LoginScreen extends StatelessWidget {
                                 Size(MediaQuery.of(context).size.width, 50),
                           ),
                           child: Text(
-                            'Login',
+                            'Sign up',
                             style: TextStyle(color: Colors.white),
                           )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('New to Taskly?'),
+                      Text('Already have an acccount?'),
                       TextButton(
-                        onPressed: () => Get.to(() => Register()),
+                        onPressed: () => Get.back(),
                         child: Text(
-                          'Register',
+                          'Login',
                           style: TextStyle(color: ColorConstants.buttonColor),
                         ),
                       )

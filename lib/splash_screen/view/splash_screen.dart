@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Task Management',
+              'Taskly',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
             ),
             Lottie.asset("assets/images/splash_screen_lottie.json",
