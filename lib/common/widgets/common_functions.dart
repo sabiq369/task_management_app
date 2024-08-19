@@ -6,6 +6,7 @@ import 'package:task_management_app/common/color_constants.dart';
 showToast({required String msg}) {
   return Fluttertoast.showToast(
     msg: msg,
+    toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     backgroundColor: Colors.black,
     textColor: Colors.white,

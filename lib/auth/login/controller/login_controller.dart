@@ -7,9 +7,13 @@ import 'package:task_management_app/services/services.dart';
 class LoginController extends GetxController {
   RxBool isLoading = false.obs;
 
-  Future login({required String email, required String password}) async {
+  Future login(
+      {required bool isLogin,
+      required String email,
+      required String password}) async {
     isLoading.value = true;
-    var data = await Services().login(email: email, password: password);
+    var data = await Services()
+        .loginRegister(isLogin: true, email: email, password: password);
     print('|||||||||| data |||||||||| ');
     print(data);
     if (data != null) {

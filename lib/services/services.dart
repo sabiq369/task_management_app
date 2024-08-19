@@ -8,12 +8,15 @@ import 'package:task_management_app/common/widgets/common_functions.dart';
 class Services {
   final Dio _dio = Dio();
   String error = '';
-  Future login({required String email, required String password}) async {
+  Future loginRegister(
+      {required bool isLogin,
+      required String email,
+      required String password}) async {
     print('email: $email');
     print('password: $password');
     try {
       var response = await _dio.post(
-        Api.login,
+        isLogin ? Api.login : Api.register,
         data: {
           'email': email,
           'password': password,

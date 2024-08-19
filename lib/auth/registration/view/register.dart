@@ -80,7 +80,12 @@ class Register extends StatelessWidget {
                       ? loadingButton(context)
                       : ElevatedButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {}
+                            if (_formKey.currentState!.validate()) {
+                              _registerController.register(
+                                  isLogin: false,
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstants.buttonColor,
