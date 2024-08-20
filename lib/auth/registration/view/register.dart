@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:task_management_app/auth/login/controller/login_controller.dart';
 import 'package:task_management_app/auth/registration/controller/register_controller.dart';
-import 'package:task_management_app/auth/registration/view/register.dart';
 import 'package:task_management_app/common/color_constants.dart';
 import 'package:task_management_app/common/widgets/common_functions.dart';
 import 'package:task_management_app/common/widgets/extracted_text_field.dart';
@@ -43,10 +41,11 @@ class Register extends StatelessWidget {
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 20),
-                  EmailTextField(
+                  ExtractedTextField(
                     controller: emailController,
                     icon: Icon(CupertinoIcons.at),
                     hintText: 'Email ID',
+                    textInputType: TextInputType.emailAddress,
                     showSuffixIcon: false,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
@@ -62,7 +61,7 @@ class Register extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 20),
-                  EmailTextField(
+                  ExtractedTextField(
                     controller: passwordController,
                     icon: Icon(CupertinoIcons.lock),
                     hintText: 'Password',

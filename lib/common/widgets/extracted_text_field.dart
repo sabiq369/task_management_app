@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class EmailTextField extends StatefulWidget {
-  EmailTextField({
+class ExtractedTextField extends StatefulWidget {
+  ExtractedTextField({
     super.key,
     required this.controller,
     required this.icon,
@@ -11,19 +11,26 @@ class EmailTextField extends StatefulWidget {
     required this.showSuffixIcon,
     required this.textInputAction,
     required this.validator,
+    this.readOnly = false,
+    this.onTap,
+    this.helperText = '',
+    this.textInputType,
+    this.capitalize = false,
   });
   TextEditingController controller = TextEditingController();
   Icon icon;
-  String hintText;
-  bool showSuffixIcon;
+  String hintText, helperText;
+  bool showSuffixIcon, readOnly, capitalize;
   TextInputAction? textInputAction;
+  TextInputType? textInputType;
   String? Function(String?)? validator;
+  void Function()? onTap;
 
   @override
-  State<EmailTextField> createState() => _EmailTextFieldState();
+  State<ExtractedTextField> createState() => _ExtractedTextFieldState();
 }
 
-class _EmailTextFieldState extends State<EmailTextField> {
+class _ExtractedTextFieldState extends State<ExtractedTextField> {
   bool showPassword = false;
 
   @override
@@ -37,7 +44,14 @@ class _EmailTextFieldState extends State<EmailTextField> {
           : false,
       textInputAction: widget.textInputAction,
       validator: widget.validator,
+      readOnly: widget.readOnly,
+      onTap: widget.onTap,
+      keyboardType: widget.textInputType,
+      textCapitalization: widget.capitalize
+          ? TextCapitalization.sentences
+          : TextCapitalization.none,
       decoration: InputDecoration(
+        helperText: widget.helperText,
         prefixIcon: widget.icon,
         hintText: widget.hintText,
         suffixIcon: widget.showSuffixIcon

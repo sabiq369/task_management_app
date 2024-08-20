@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_management_app/auth/login/view/login.dart';
+import 'package:task_management_app/common/shared_pref.dart';
 import 'package:task_management_app/dashboard/view/dashboard.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -10,9 +12,18 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(
-      Duration(seconds: 5),
-      () {
-        Get.off(() => LoginScreen());
+      Duration(milliseconds: 2500),
+      () async {
+        final prefs = await SharedPreferences.getInstance();
+        final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+        print('|||| logged in splash screen |||||||||');
+        print(isLoggedIn);
+
+        if (isLoggedIn) {
+          Get.off(() => Dashboard());
+        } else {
+          Get.off(() => LoginScreen());
+        }
       },
     );
     return Scaffold(
@@ -25,7 +36,7 @@ class SplashScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Taskly',
+              'Task Manager',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
             ),
             Lottie.asset("assets/images/splash_screen_lottie.json",

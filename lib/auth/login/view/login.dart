@@ -42,10 +42,11 @@ class LoginScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 20),
-                  EmailTextField(
+                  ExtractedTextField(
                     controller: emailController,
                     icon: Icon(CupertinoIcons.at),
                     hintText: 'Email ID',
+                    textInputType: TextInputType.emailAddress,
                     showSuffixIcon: false,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
@@ -61,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 20),
-                  EmailTextField(
+                  ExtractedTextField(
                     controller: passwordController,
                     icon: Icon(CupertinoIcons.lock),
                     hintText: 'Password',
@@ -98,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('New to Taskly?'),
+                      Text('New to Task Manager?'),
                       TextButton(
                         onPressed: () => Get.to(() => Register()),
                         child: Text(

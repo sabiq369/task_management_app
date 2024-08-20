@@ -41,6 +41,11 @@ dependencies:
   fluttertoast:
   loading_animation_widget:
   permission_handler:
+  intl:
+  cached_network_image:
+  shared_preferences:
+  drag_and_drop_lists:
+  dropdown_textfield:
 
 dev_dependencies:
   flutter_test:
