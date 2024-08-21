@@ -1,15 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:dropdown_textfield/dropdown_textfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kanban_board/custom/board.dart';
+import 'package:kanban_board/models/inputs.dart';
 import 'package:task_management_app/common/color_constants.dart';
-import 'package:task_management_app/common/shared_pref.dart';
 import 'package:task_management_app/common/widgets/common_functions.dart';
 import 'package:task_management_app/common/widgets/extracted_text_field.dart';
 import 'package:task_management_app/dashboard/controller/dashboard_controller.dart';
-import 'package:task_management_app/dashboard/model/users/users_model.dart';
 import 'package:task_management_app/dashboard/model/users_replaced.dart';
 
 class Dashboard extends StatelessWidget {
@@ -25,7 +22,7 @@ class Dashboard extends StatelessWidget {
       canPop: false,
       onPopInvoked: (didPop) => logOutAlert(context, 2),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text(
             'Task Manager',
@@ -33,15 +30,15 @@ class Dashboard extends StatelessWidget {
                 fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
           ),
           centerTitle: true,
-          backgroundColor: ColorConstants.buttonColor,
+          backgroundColor: Colors.black,
           actions: [
             TextButton(
                 onPressed: () => logOutAlert(context, 1),
-                child: Text(
+                child: const Text(
                   'Sign out',
                   style: TextStyle(color: Colors.white),
                 )),
-            SizedBox(width: 10)
+            const SizedBox(width: 10)
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -259,17 +256,12 @@ class Dashboard extends StatelessWidget {
                                       onChanged: (String? newValue) {
                                         _dashboardController.taskAssignedUserId
                                             .value = newValue!;
-
-                                        print(
-                                            '|||||||| selected user ||||||||||||');
-                                        print(_dashboardController
-                                            .taskAssignedUserId.value);
                                       },
                                     ),
                                     Divider(
                                       color: _dashboardController
                                               .assignedUserValidation.value
-                                          ? Color(0xffb00020)
+                                          ? const Color(0xffb00020)
                                           : Colors.black,
                                     ),
                                     Text(
@@ -277,7 +269,7 @@ class Dashboard extends StatelessWidget {
                                       style: TextStyle(
                                           color: _dashboardController
                                                   .assignedUserValidation.value
-                                              ? Color(0xffb00020)
+                                              ? const Color(0xffb00020)
                                               : Colors.black),
                                     ),
                                     const SizedBox(height: 20),
@@ -337,115 +329,185 @@ class Dashboard extends StatelessWidget {
               },
             );
           },
-          backgroundColor: ColorConstants.buttonColor,
+          backgroundColor: Colors.white,
           child: const Icon(
             Icons.add,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         body: Obx(() {
           return _dashboardController.isLoading.value
               ? InkWell(
                   onTap: () => _dashboardController.apiCall(),
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(
                       color: ColorConstants.buttonColor,
                     ),
                   ),
                 )
               : SafeArea(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 20),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Obx(() {
-                        return DragAndDropLists(
-                            children: _dashboardController.lists,
-                            onItemReorder: _dashboardController.onItemReorder,
-                            onListReorder: _dashboardController.onListReorder);
-                      }),
-                      // child: Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: [
-                      //           Text('TO DO', style: commonTextStyle(type: 1)),
-                      //           SizedBox(height: 10),
-                      //           Expanded(
-                      //             child: ListView.builder(
-                      //               shrinkWrap: true,
-                      //               physics: BouncingScrollPhysics(),
-                      //               itemCount: _dashboardController
-                      //                   .toDoListModel.length,
-                      //               itemBuilder: (context, index) {
-                      //                 return _dashboardController
-                      //                         .toDoListModel[index].completed
-                      //                     ? taskCard(index: index, type: 1)
-                      //                     : const SizedBox();
-                      //               },
-                      //             ),
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 10),
-                      //     Expanded(
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: [
-                      //           Text('IN PROGRESS',
-                      //               style: commonTextStyle(type: 2)),
-                      //           SizedBox(height: 10),
-                      //           Expanded(
-                      //             child: ListView.builder(
-                      //               shrinkWrap: true,
-                      //               physics: BouncingScrollPhysics(),
-                      //               itemCount: _dashboardController
-                      //                   .toDoListModel.length,
-                      //               itemBuilder: (context, index) {
-                      //                 return _dashboardController
-                      //                         .toDoListModel[index].completed
-                      //                     ? taskCard(index: index, type: 2)
-                      //                     : const SizedBox();
-                      //               },
-                      //             ),
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 10),
-                      //     Expanded(
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: [
-                      //           Text('DONE', style: commonTextStyle(type: 3)),
-                      //           SizedBox(height: 10),
-                      //           Expanded(
-                      //             child: ListView.builder(
-                      //               shrinkWrap: true,
-                      //               physics: BouncingScrollPhysics(),
-                      //               itemCount: _dashboardController
-                      //                   .toDoListModel.length,
-                      //               itemBuilder: (context, index) {
-                      //                 return !_dashboardController
-                      //                         .toDoListModel[index].completed
-                      //                     ? taskCard(index: index, type: 3)
-                      //                     : const SizedBox();
-                      //               },
-                      //             ),
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: KanbanBoard(
+                      List.generate(
+                        3,
+                        (titleIndex) {
+                          return BoardListsData(
+                            title: titleIndex == 0
+                                ? 'TO DO '
+                                : titleIndex == 1
+                                    ? 'IN PROGRESS'
+                                    : 'DONE',
+                            width: 250,
+                            headerBackgroundColor: Colors.transparent,
+                            footerBackgroundColor: Colors.transparent,
+                            backgroundColor: Colors.transparent,
+                            // header: Padding(
+                            //     padding: EdgeInsets.all(5),
+                            //     child: Text(
+                            //       "List Title",
+                            //       style: TextStyle(fontSize: 20),
+                            //     ),),
+                            // footer: Padding(
+                            //     padding: EdgeInsets.all(5),
+                            //     child: Text(
+                            //       "List Footer",
+                            //       style: TextStyle(fontSize: 20),
+                            //     ),),
+                            items: List.generate(
+                              _dashboardController.toDoListModel.length,
+                              (taskIndex) {
+                                return Material(
+                                  color: Colors.transparent,
+                                  child: Container(
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 5,
+                                        top: 15,
+                                        bottom: 15),
+                                    decoration: BoxDecoration(
+                                        color: titleIndex == 0
+                                            ? ColorConstants.toDoColor
+                                            : titleIndex == 1
+                                                ? ColorConstants.inProgressColor
+                                                : ColorConstants.doneColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                            text: '${taskIndex + 1}. ',
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        TextSpan(
+                                            text: _dashboardController
+                                                .toDoListModel[taskIndex].title,
+                                            style: const TextStyle(
+                                                fontStyle: FontStyle.italic))
+                                      ]),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                      backgroundColor: Colors.black,
                     ),
+
+                    // child: Obx(() {
+                    //   return DragAndDropLists(
+                    //       children: _dashboardController.lists,
+                    //       onItemReorder: _dashboardController.onItemReorder,
+                    //       onListReorder: _dashboardController.onListReorder);
+                    // }),
+                    // child: Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.start,
+                    //         crossAxisAlignment: CrossAxisAlignment.center,
+                    //         children: [
+                    //           Text('TO DO', style: commonTextStyle(type: 1)),
+                    //           SizedBox(height: 10),
+                    //           Expanded(
+                    //             child: ListView.builder(
+                    //               shrinkWrap: true,
+                    //               physics: BouncingScrollPhysics(),
+                    //               itemCount: _dashboardController
+                    //                   .toDoListModel.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return _dashboardController
+                    //                         .toDoListModel[index].completed
+                    //                     ? taskCard(index: index, type: 1)
+                    //                     : const SizedBox();
+                    //               },
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     SizedBox(width: 10),
+                    //     Expanded(
+                    //       child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.start,
+                    //         crossAxisAlignment: CrossAxisAlignment.center,
+                    //         children: [
+                    //           Text('IN PROGRESS',
+                    //               style: commonTextStyle(type: 2)),
+                    //           SizedBox(height: 10),
+                    //           Expanded(
+                    //             child: ListView.builder(
+                    //               shrinkWrap: true,
+                    //               physics: BouncingScrollPhysics(),
+                    //               itemCount: _dashboardController
+                    //                   .toDoListModel.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return _dashboardController
+                    //                         .toDoListModel[index].completed
+                    //                     ? taskCard(index: index, type: 2)
+                    //                     : const SizedBox();
+                    //               },
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     SizedBox(width: 10),
+                    //     Expanded(
+                    //       child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.start,
+                    //         crossAxisAlignment: CrossAxisAlignment.center,
+                    //         children: [
+                    //           Text('DONE', style: commonTextStyle(type: 3)),
+                    //           SizedBox(height: 10),
+                    //           Expanded(
+                    //             child: ListView.builder(
+                    //               shrinkWrap: true,
+                    //               physics: BouncingScrollPhysics(),
+                    //               itemCount: _dashboardController
+                    //                   .toDoListModel.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return !_dashboardController
+                    //                         .toDoListModel[index].completed
+                    //                     ? taskCard(index: index, type: 3)
+                    //                     : const SizedBox();
+                    //               },
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
                 );
         }),
@@ -457,36 +519,10 @@ class Dashboard extends StatelessWidget {
     return TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: type == 1
+        color: type == 0
             ? ColorConstants.toDoColor
-            : type == 2
+            : type == 1
                 ? ColorConstants.inProgressColor
                 : ColorConstants.doneColor);
-  }
-
-  taskCard({required int index, required int type}) {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
-        padding: EdgeInsets.only(left: 10, right: 5, top: 15, bottom: 15),
-        decoration: BoxDecoration(
-            color: type == 1
-                ? ColorConstants.toDoColor
-                : type == 2
-                    ? ColorConstants.inProgressColor
-                    : ColorConstants.doneColor,
-            borderRadius: BorderRadius.circular(10)),
-        child: RichText(
-          text: TextSpan(children: [
-            TextSpan(
-                text: '${index + 1}. ', style: TextStyle(color: Colors.black)),
-            TextSpan(
-                text: _dashboardController.toDoListModel[index].title,
-                style: TextStyle(fontStyle: FontStyle.italic))
-          ]),
-        ),
-      ),
-    );
   }
 }

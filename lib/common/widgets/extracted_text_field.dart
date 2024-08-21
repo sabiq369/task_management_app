@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ExtractedTextField extends StatefulWidget {
   ExtractedTextField({
@@ -18,13 +16,13 @@ class ExtractedTextField extends StatefulWidget {
     this.capitalize = false,
   });
   TextEditingController controller = TextEditingController();
-  Icon icon;
-  String hintText, helperText;
-  bool showSuffixIcon, readOnly, capitalize;
-  TextInputAction? textInputAction;
-  TextInputType? textInputType;
-  String? Function(String?)? validator;
-  void Function()? onTap;
+  final Icon icon;
+  final String hintText, helperText;
+  final bool showSuffixIcon, readOnly, capitalize;
+  final TextInputAction? textInputAction;
+  final TextInputType? textInputType;
+  final String? Function(String?)? validator;
+  final void Function()? onTap;
 
   @override
   State<ExtractedTextField> createState() => _ExtractedTextFieldState();
@@ -62,8 +60,8 @@ class _ExtractedTextFieldState extends State<ExtractedTextField> {
                   });
                 },
                 icon: showPassword
-                    ? Icon(Icons.visibility)
-                    : Icon(Icons.visibility_off),
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
               )
             : const SizedBox(),
       ),

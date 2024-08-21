@@ -10,12 +10,10 @@ void setLogin() async {
 
 getPrefs(key) async {
   final prefs = await SharedPreferences.getInstance();
-  print('|||||||||| logged in shared pref |||||||||');
-  print(prefs.getBool(key));
   return prefs.getBool(key);
 }
 
-signout() async {
+signOut() async {
   final prefs = await SharedPreferences.getInstance();
   prefs.clear();
   Get.offAll(() => LoginScreen());

@@ -8,11 +8,11 @@ import 'package:task_management_app/common/widgets/common_functions.dart';
 import 'package:task_management_app/common/widgets/extracted_text_field.dart';
 
 class Register extends StatelessWidget {
-  Register({Key? key}) : super(key: key);
-  TextEditingController emailController = TextEditingController(),
+  Register({super.key});
+  final TextEditingController emailController = TextEditingController(),
       passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  RegisterController _registerController = Get.put(RegisterController());
+  final RegisterController _registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,14 @@ class Register extends StatelessWidget {
                       child: Lottie.asset("assets/images/register.json"),
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Sign up',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ExtractedTextField(
                     controller: emailController,
-                    icon: Icon(CupertinoIcons.at),
+                    icon: const Icon(CupertinoIcons.at),
                     hintText: 'Email ID',
                     textInputType: TextInputType.emailAddress,
                     showSuffixIcon: false,
@@ -60,10 +60,10 @@ class Register extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ExtractedTextField(
                     controller: passwordController,
-                    icon: Icon(CupertinoIcons.lock),
+                    icon: const Icon(CupertinoIcons.lock),
                     hintText: 'Password',
                     showSuffixIcon: true,
                     textInputAction: TextInputAction.done,
@@ -74,7 +74,7 @@ class Register extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   _registerController.isLoading.value
                       ? loadingButton(context)
                       : ElevatedButton(
@@ -91,17 +91,17 @@ class Register extends StatelessWidget {
                             fixedSize:
                                 Size(MediaQuery.of(context).size.width, 50),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Sign up',
                             style: TextStyle(color: Colors.white),
                           )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Already have an acccount?'),
+                      const Text('Already have an account?'),
                       TextButton(
                         onPressed: () => Get.back(),
-                        child: Text(
+                        child: const Text(
                           'Login',
                           style: TextStyle(color: ColorConstants.buttonColor),
                         ),

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_management_app/common/color_constants.dart';
 import 'package:task_management_app/common/shared_pref.dart';
 
@@ -45,64 +44,65 @@ logOutAlert(context, type) {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15)),
                   child: Column(
                     children: [
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Text(
                         type == 1 ? 'Sign out' : 'Exit App',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                             color: Colors.black),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
                           type == 1
                               ? 'Are you sure you want to sign out?'
                               : 'Are you sure you want to exit app?',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                               color: Colors.black)),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       Row(
                         children: [
                           Expanded(
-                            child: TextButton(
-                              onPressed: () => Get.back(),
-                              child: Text('cancel',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black)),
-                            ),
-                          ),
-                          SizedBox(width: 20),
-                          Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                type == 1 ? signout() : SystemNavigator.pop();
+                                type == 1 ? signOut() : SystemNavigator.pop();
                               },
                               style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size.fromHeight(45),
                                   backgroundColor: ColorConstants.buttonColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15))),
                               child: Text(
                                 type == 1 ? 'Sign out' : 'Exit',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
                             ),
                           ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () => Get.back(),
+                              child: const Text('cancel',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black)),
+                            ),
+                          ),
                         ],
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),

@@ -9,11 +9,11 @@ import 'package:task_management_app/common/widgets/common_functions.dart';
 import 'package:task_management_app/common/widgets/extracted_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-  TextEditingController emailController = TextEditingController(),
+  LoginScreen({super.key});
+  final TextEditingController emailController = TextEditingController(),
       passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  LoginController _loginController = Get.put(LoginController());
+  final LoginController _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ class LoginScreen extends StatelessWidget {
                       child: Lottie.asset("assets/images/login_replaced.json"),
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Login',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ExtractedTextField(
                     controller: emailController,
-                    icon: Icon(CupertinoIcons.at),
+                    icon: const Icon(CupertinoIcons.at),
                     hintText: 'Email ID',
                     textInputType: TextInputType.emailAddress,
                     showSuffixIcon: false,
@@ -61,10 +61,10 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ExtractedTextField(
                     controller: passwordController,
-                    icon: Icon(CupertinoIcons.lock),
+                    icon: const Icon(CupertinoIcons.lock),
                     hintText: 'Password',
                     showSuffixIcon: true,
                     textInputAction: TextInputAction.done,
@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   _loginController.isLoading.value
                       ? loadingButton(context)
                       : ElevatedButton(
@@ -92,17 +92,17 @@ class LoginScreen extends StatelessWidget {
                             fixedSize:
                                 Size(MediaQuery.of(context).size.width, 50),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Login',
                             style: TextStyle(color: Colors.white),
                           )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('New to Task Manager?'),
+                      const Text('New to Task Manager?'),
                       TextButton(
                         onPressed: () => Get.to(() => Register()),
-                        child: Text(
+                        child: const Text(
                           'Register',
                           style: TextStyle(color: ColorConstants.buttonColor),
                         ),

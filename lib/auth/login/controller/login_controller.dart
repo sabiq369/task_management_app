@@ -13,12 +13,8 @@ class LoginController extends GetxController {
     isLoading.value = true;
     var data = await Services()
         .loginRegister(isLogin: true, email: email, password: password);
-    print('|||||||||| data |||||||||| ');
-    print(data);
     if (data != null) {
       isLoading.value = false;
-      print('||||||||| Token ||||||||||');
-      print(data['token'].toString());
       setLogin();
 
       Get.off(() => Dashboard());
